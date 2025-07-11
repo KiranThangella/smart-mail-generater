@@ -1,28 +1,25 @@
-// At the top with other cache files
-const ASSETS_TO_CACHE = [
-    // ... other files ...
-    '/fallback.html'
-  ];
-  
-  // In the fetch handler
-  self.addEventListener('fetch', event => {
-    event.respondWith(
-      caches.match(event.request)
-        .then(response => {
-          return response || fetch(event.request)
-            .catch(() => {
-              // Special handling for failed page requests
-              if (event.request.headers.get('accept').includes('text/html')) {
-                return caches.match('/fallback.html');
-              }
-              // Fallback for CSS/JS
-              if (event.request.url.endsWith('.css')) {
-                return new Response('body { visibility: hidden; }', { headers: { 'Content-Type': 'text/css' }});
-              }
-              if (event.request.url.endsWith('.js')) {
-                return new Response('console.log("Offline mode");', { headers: { 'Content-Type': 'text/javascript' }});
-              }
-            });
-        })
-    );
-  });
+const CACHE_NAME = 'smartmail-v1';
+const ASSETS = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/assets/android/android-chrome-192x192.png',
+  '/assets/android/android-chrome-512x512.png',
+  '/assets/ios/apple-touch-icon.png'
+];
+
+// Installation Event
+self.addEventListener('install', (e) => {
+  e.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(ASSETS))
+  );  // Fixed: Added missing closing parenthesis
+});
+
+// Fetch Event
+self.addEventListener('fetch', (e) => {
+  e.respondWith(
+    caches.match(e.request)
+      .then(response => response || fetch(e.request))
+  );  // Fixed: Added missing closing parenthesis
+});
