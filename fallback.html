@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SmartMail Offline</title>
+        <style>
+            :root {
+                --primary: #6366f1;
+                --bg: #f8fafc;
+            }
+
+            body {
+                font-family: 'Inter', system-ui, sans-serif;
+                background: var(--bg);
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                padding: 2rem;
+                line-height: 1.6;
+            }
+
+            h1 {
+                color: var(--primary);
+                margin-bottom: 1rem;
+            }
+
+            .icon {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 1.5rem;
+                opacity: 0.8;
+            }
+
+            button {
+                background: var(--primary);
+                color: white;
+                border: none;
+                padding: 0.75rem 1.5rem;
+                border-radius: 8px;
+                margin-top: 1.5rem;
+                font-size: 1rem;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+
+    <body>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 7l4-4m0 0l4 4m-4-4v18m-6 3h12a3 3 0 003-3v-5a1 1 0 00-1-1h-2a1 1 0 00-1 1v1a1 1 0 01-1 1H9a1 1 0 01-1-1v-1a1 1 0 00-1-1H5a1 1 0 00-1 1v5a3 3 0 003 3z" />
+        </svg>
+
+        <h1>You're Offline</h1>
+        <p>SmartMail requires an internet connection to generate new emails.</p>
+        <p>When you're back online, the app will automatically refresh.</p>
+
+        <button onclick="window.location.reload()">Retry Connection</button>
+
+        <script>
+            // Auto-retry when connection returns
+            window.addEventListener('online', () => {
+                window.location.reload();
+            });
+
+            // Check if cached content exists
+            if ('serviceWorker' in navigator) {
+                caches.match('/index.html')
+                    .then(response => {
+                        if (response) {
+                            document.querySelector('p').innerHTML +=
+                                '<br><a href="/index.html" style="color: #6366f1">Go to cached version</a>';
+                        }
+                    });
+            }
+        </script>
+    </body>
+
+</html>

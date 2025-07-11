@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SmartMail Generator</title>
+        <meta name="description" content="Generate professional emails instantly">
+        <meta name="theme-color" content="#6366f1">
+        <link rel="manifest" href="manifest.json">
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" href="assets/favicon.ico">
+        <link rel="icon" href="assets/icons/favicon.ico" sizes="any">
+        <link rel="apple-touch-startup-image" href="/assets/icons/splash.png">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Inter:wght@400;500&display=swap"
+            rel="stylesheet">
+        <!-- iOS meta tags -->
+        <!-- Apple Touch Icon -->
+        <meta name="apple-mobile-web-app-capable" content="yes"> <!-- For Safari iOS -->
+        <meta name="mobile-web-app-capable" content="yes"> <!-- For Chrome/Android -->
+        <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+        
+        <!-- Splash Screen Metadata -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="apple-mobile-web-app-title" content="SmartMail">
+        <link rel="apple-touch-icon" href="assets/icons/icon-152x152.png">
+        <!-- Windows meta tags -->
+        <meta name="msapplication-TileImage" content="assets/icons/icon-144x144.png">
+        <meta name="msapplication-TileColor" content="#6366f1">
+        <style>
+            .icon {
+                width: 1em;
+                height: 1em;
+                stroke-width: 2;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                fill: none;
+                stroke: currentColor;
+                vertical-align: middle;
+            }
+
+            /* Install button */
+            .install-btn {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 0.75rem 1.5rem;
+                background: linear-gradient(to right, #4f46e5, #7c3aed);
+                color: white;
+                border: none;
+                border-radius: 50px;
+                font-size: 0.9rem;
+                font-weight: 500;
+                cursor: pointer;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1000;
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <header class="header">
+                <h1 class="title">SmartMail Generator</h1>
+                <p class="subtitle">Create professional emails in seconds</p>
+            </header>
+
+            <main class="main-content">
+                <div class="generator-container">
+                    <div class="glass-card input-section">
+                        <h2 class="section-title">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                </path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            Email Details
+                        </h2>
+
+                        <div class="form-group">
+                            <select id="email-type" class="form-input">
+                                <option value="cover-letter">Cover Letter</option>
+                                <option value="leave-request">Leave Request</option>
+                                <option value="resignation">Resignation Email</option>
+                                <option value="internship">Internship Request</option>
+                                <option value="thank-you">Thank You Email</option>
+                            </select>
+                            <div class="input-focus-effect"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" id="user-name" class="form-input" placeholder=" ">
+                            <label for="user-name">Your Name</label>
+                            <div class="input-focus-effect"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" id="recipient-name" class="form-input" placeholder=" ">
+                            <label for="recipient-name">Recipient Name</label>
+                            <div class="input-focus-effect"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" id="company-name" class="form-input" placeholder=" ">
+                            <label for="company-name">Company/School Name</label>
+                            <div class="input-focus-effect"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea id="reason" class="form-input" placeholder=" "></textarea>
+                            <label for="reason">Additional Details (Optional)</label>
+                            <div class="input-focus-effect"></div>
+                        </div>
+
+                        <button id="generate-btn" class="primary-btn generate-pulse">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <polyline points="15 10 20 15 15 20"></polyline>
+                                <path d="M4 4v7a4 4 0 0 0 4 4h12"></path>
+                            </svg>
+                            <span>Generate Email</span>
+                        </button>
+                    </div>
+
+                    <div class="glass-card output-section">
+                        <h2 class="section-title">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                            Generated Email
+                        </h2>
+
+                        <div class="email-preview-container">
+                            <div id="email-preview" class="email-preview" contenteditable="true"></div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button id="copy-btn" class="secondary-btn">
+                                <svg class="icon" viewBox="0 0 24 24">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                                Copy to Clipboard
+                            </button>
+                            <button id="download-btn" class="secondary-btn">
+                                <svg class="icon" viewBox="0 0 24 24">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                Download as .txt
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="footer">
+                © 2025 SmartMail by <a href="https://mindwriter.in" target="_blank">mindwriter.in</a>
+            </footer>
+        </div>
+
+        <button id="install-btn" class="install-btn">
+            Install App
+        </button>
+
+        <div id="toast" class="toast">Copied to clipboard!</div>
+
+        <script src="script.js"></script>
+        <script>
+            // Register service worker
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('sw.js')
+                        .then(registration => {
+                            console.log('ServiceWorker registration successful');
+                        })
+                        .catch(err => {
+                            console.log('ServiceWorker registration failed: ', err);
+                        });
+                });
+            }
+
+            // Handle install prompt
+            let deferredPrompt;
+            const installBtn = document.getElementById('install-btn');
+
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                installBtn.style.display = 'block';
+
+                installBtn.addEventListener('click', () => {
+                    installBtn.style.display = 'none';
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('User accepted install');
+                        }
+                        deferredPrompt = null;
+                    });
+                });
+            });
+
+            window.addEventListener('appinstalled', () => {
+                installBtn.style.display = 'none';
+                deferredPrompt = null;
+            });
+        </script>
+    </body>
+
+</html>
